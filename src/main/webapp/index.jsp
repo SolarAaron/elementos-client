@@ -6,7 +6,12 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Bienvenido</title>
-        <script src="jscript/libs/jquery/jquery.js" />
+        <script src="jscript/libs/jquery/jquery.js"></script>
+        <script>
+            $(document).ready(function(){
+                alert("Cargando");
+            });
+        </script>
     </head>
     <body>
         <h1>Hello World!</h1>
