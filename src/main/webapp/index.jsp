@@ -14,12 +14,12 @@
                 $("#slrmsg").click(function(){
                     $("#resp").html($.ajax({
                         type: "GET",
-                        url: "http://localhost:8612/mvn-web-spr/util/usuarios/todos",
+                        url: "http://localhost:8612/mvn-web-spr/util/usuarios/usuario",
                         data: {
                             
                         },
                         success: function (data, textStatus, jqXHR) {
-                            $("#resp").html(data);
+                            $("#resp").html("Login: " + data.login + "<br>Admin: " + data.adminRol);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                         
