@@ -14,15 +14,18 @@
                 $("#slrmsg").click(function(){
                     $("#resp").html($.ajax({
                         type: "GET",
-                        url: "http://localhost:8612/mvn-web-spr/util/usuarios/usuario",
+                        url: "http://localhost:8095/mvn-web-spr/util/usuarios/usuario",
                         data: {
-                            
+
                         },
                         success: function (data, textStatus, jqXHR) {
-                            $("#resp").html("Login: " + data.login + "<br>Admin: " + data.adminRol);
+                            $("#resp").html("");
+                            for(i = 0; i < data.length; i++){
+                                $("#resp").html($("#resp").html() + "<br><br>" + "Login: " + data[i].login + "<br>Admin: " + data[i].adminRol);
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
-                        
+
                         }
                     })); //ajax
                 }); //click
