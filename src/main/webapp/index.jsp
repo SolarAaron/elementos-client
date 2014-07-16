@@ -10,7 +10,6 @@
         <link rel="stylesheet" href="jscript/libs/twitter-bootstrap/css/bootstrap.css">
         <script>
             $(document).ready(function(){
-                //alert("Cargando.....");
                 $("#slrmsg").click(function(){
                     $("#resp").html($.ajax({
                         type: "GET",
@@ -20,8 +19,8 @@
                         },
                         success: function (data, textStatus, jqXHR) {
                             $("#resp").html("");
-                            for(i = 0; i < data.length; i++){
-                                $("#resp").html($("#resp").html() + "<br><br>" + "Login: " + data[i].login + "<br>Admin: " + data[i].adminRol);
+                            for(i = 0; i < data.object.length; i++){
+                                $("#resp").html($("#resp").html() + "<br><br>" + data.object[i].id + " nombre: " + data.object[i].nombre + ", salario: " + data.object[i].salario);
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
