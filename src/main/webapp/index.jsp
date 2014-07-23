@@ -11,9 +11,9 @@
         <script>
             $(document).ready(function(){
                 $("#slrmsg").click(function(){
-                    $("#resp").html($.ajax({
+                    $.ajax({
                         type: "GET",
-                        url: "http://localhost:8095/mvn-web-spr/util/usuarios/usuario",
+                        url: "http://localhost:8095/mvn-web-spr/util/usuarios",
                         data: {
 
                         },
@@ -26,7 +26,16 @@
                         error: function (jqXHR, textStatus, errorThrown) {
 
                         }
-                    })); //ajax
+                    }); //ajax
+                }); //click
+                $("#submit").click(function(){
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8095/mvn-web-spr/util/usuario/" + $("#nm").val() + "/" + $("#sl").val(),
+                        success: function (data, textStatus, jqXHR) {
+                            $("#resp").html($("#resp").html() + "<br>" + data.object);
+                        }
+                    }); //ajax
                 }); //click
             }); //ready
         </script>
@@ -34,5 +43,11 @@
     <body>
         <h1 id="slrmsg" class="btn btn-lg btn-success">Do click me.</h1>
         <div id="resp"></div>
+        Insertar:
+        <form>
+            Nombre: <input id="nm" type="text"><br>
+            Salario: <input id="sl" type="number"><br>
+            <input type="button" id="submit" class="btn btn-lg btn-default">
+        </form>
     </body>
 </html>
