@@ -24,21 +24,21 @@
                 $("#slrmsg").click(function(){
                     $.ajax({
                         type: "GET",
-                        url: "http://localhost:8095/mvn-web-spr/util/usuarios",
+                        url: "http://localhost:8095/mvn-web-spr/util/empleados",
                         data: {
 
                         },
                         success: function (data, textStatus, jqXHR) {
                             $("#resp").html("");
                             for(i = 0; i < data.object.length; i++){
-                                $("#resp").html($("#resp").html() + "<li>" + data.object[i].id +
+                                $("#resp").html($("#resp").html() + "<li>" + data.object[i].idE +
                                     "-- nombre: " + data.object[i].nombre + ", salario: " +
                                     data.object[i].salario +
                                     (data.object[i].nomina ? (", en cuenta: " + data.object[i].nomina.saldo) : ", aun no pagado ") +
                                     ' <input type="button" value="pagar" id="usr' +
-                                    data.object[i].id +
+                                    data.object[i].idE +
                                     '" class="btn btn-lg btn-default" onclick="clfunc(' +
-                                    data.object[i].id + ')"/>' + "</li>");
+                                    data.object[i].idE + ')"/>' + "</li>");
                             }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -49,7 +49,7 @@
                 $("#submit").click(function(){
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:8095/mvn-web-spr/util/usuario/" + $("#nm").val() + "/" + $("#sl").val(),
+                        url: "http://localhost:8095/mvn-web-spr/util/empleado/" + $("#nm").val() + "/" + $("#sl").val(),
                         success: function (dta, textStatus, jqXHR) {
                             $("#ins").html(dta.object);
                             $("#slrmsg").click();
@@ -60,7 +60,7 @@
         </script>
     </head>
     <body>
-        <h1 id="slrmsg" class="btn btn-lg btn-success">Mostrar usuarios</h1>
+        <h1 id="slrmsg" class="btn btn-lg btn-success">Mostrar empleados</h1>
         <ul id="resp"></ul>
         Insertar:
         <form>
