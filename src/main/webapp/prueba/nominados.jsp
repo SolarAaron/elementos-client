@@ -12,7 +12,7 @@
             function clfunc(i){
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:8095/mvn-web-spr/util/nomina/" + i,
+                    url: "http://localhost:8095/mvn-web-spr/util/nominas/" + i,
                     success: function(data){
                         $("#pagos").html("<br>" + data.object);
                         $("#slrmsg").click();
@@ -26,7 +26,6 @@
                         type: "GET",
                         url: "http://localhost:8095/mvn-web-spr/util/empleados",
                         data: {
-
                         },
                         success: function (data, textStatus, jqXHR) {
                             $("#resp").html("");
@@ -49,7 +48,10 @@
                 $("#submit").click(function(){
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:8095/mvn-web-spr/util/empleado/" + $("#nm").val() + "/" + $("#sl").val(),
+                        url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#nm").val() + "/" + $("#sl").val(),
+                        data:{
+                            password: $("#ps").val()
+                        },
                         success: function (dta, textStatus, jqXHR) {
                             $("#ins").html(dta.object);
                             $("#slrmsg").click();
@@ -64,8 +66,9 @@
         <ul id="resp"></ul>
         Insertar:
         <form>
-            Nombre: <input id="nm" type="text"><br>
-            Salario: <input id="sl" type="number"><br>
+            Nombre: <input id="nm" type="text" /><br>
+            Salario: <input id="sl" type="number" /><br>
+            Password: <input id="ps" type="password" /><br>
             <input type="button" value="insertar" id="submit" class="btn btn-lg btn-default" />
         </form><br>
         <div id="ins"></div>
