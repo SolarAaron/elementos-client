@@ -14,4 +14,9 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:useBean id="now" scope="application" class="java.util.Date" />
-Copyright © ${now.year + 1900} ${name}
+<table width="100%">
+    <tr>
+        <td align="left">${now.year + 1900}</td>
+        <td align="right">${name}</td>
+    </tr>
+</table>

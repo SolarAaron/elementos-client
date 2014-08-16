@@ -13,15 +13,27 @@
 
 <%-- any content can be specified here e.g.: --%>
 <div data-role="page" id="${ID}" <c:forEach items="${dyn}" var="a"> ${a.key}="${a.value}" </c:forEach> >
-    <div data-role="header">
-        <h1>
+        <div data-role="header">
+            <a href="index.jsp" class="ui-btn ui-btn-icon-left ui-icon-home ui-btn-b">Inicio</a>
+            <h1>
             ${header_text}
         </h1>
     </div>
     <div data-role="content">
-        <jsp:doBody></jsp:doBody>
-        </div>
-        <div data-role="footer" data-position="fixed">
+        <table width="100%">
+            <tr>
+                <td width="25%">
+                    <ul class="slrmenu">
+                        <%-- Fill menu in javascript? --%>
+                    </ul>
+                </td>
+                <td align="center">
+                    <jsp:doBody />
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div data-role="footer" data-position="fixed">
         <slr:copyright name="Aaron Torres" />
     </div>
 </div>
