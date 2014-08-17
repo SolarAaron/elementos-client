@@ -10,19 +10,20 @@
 <%-- The list of normal or fragment attributes can be specified here: --%>
 <%@attribute name="ID" required="true"%>
 <%@attribute name="header_text" required="true"%>
+<%@attribute name="defpage" required="true" %>
 
 <%-- any content can be specified here e.g.: --%>
 <div data-role="page" id="${ID}" <c:forEach items="${dyn}" var="a"> ${a.key}="${a.value}" </c:forEach> >
-        <div data-role="header">
-            <a href="index.jsp" class="ui-btn ui-btn-icon-left ui-icon-home ui-btn-b">Inicio</a>
-            <h1>
+        <div data-role="header" data-position="fixed">
+            <a href="#${defpage}" class="ui-btn ui-btn-icon-left ui-icon-home ui-btn-b ui-corner-all ui-shadow">Inicio</a>
+        <h1>
             ${header_text}
         </h1>
     </div>
     <div data-role="content">
         <table width="100%">
             <tr>
-                <td width="25%">
+                <td width="10%" valign="top">
                     <ul class="slrmenu">
                         <%-- Fill menu in javascript? --%>
                     </ul>

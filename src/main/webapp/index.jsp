@@ -11,78 +11,137 @@
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.js"></script>
         <script>
-            function clfunc(i){
+            function emp_upd(i){
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8095/mvn-web-spr/util/nominas/" + i,
                     success: function(data){
-                        $("#pagos").html("<br>" + data.object);
-                        $("#slrmsg").click();
+                        $("#nom-ins").html("<br>" + data.object).trigger("create");
+                        $("#nom-ld").click();
                     }
                 });
             }
             ;
 
             $(document).ready(function(){
-                $("#slrmsg").click(function(){
+                $("#nom-ld").click(function(){
                     $.ajax({
                         type: "GET",
                         url: "http://localhost:8095/mvn-web-spr/util/empleados",
                         data: {
                         },
                         success: function(data, textStatus, jqXHR){
-                            $("#resp").html("");
+                            $("#nom-ld-resp").html("");
                             for(i = 0; i < data.object.length; i++){
-                                $("#resp").html($("#resp").html() + "<li>" + data.object[i].idE +
-                                    "-- nombre: " + data.object[i].nombre + ", salario: " +
-                                    data.object[i].salario +
-                                    (data.object[i].nomina ? (", en cuenta: " + data.object[i].nomina.saldo) : ", aun no pagado ") +
-                                    ' <input type="button" value="pagar" id="usr' +
-                                    data.object[i].idE +
-                                    '" class="btn btn-lg btn-default" onclick="clfunc(' +
-                                    data.object[i].idE + ')"/>' + "</li>");
+                                $("#nom-ld-resp").html($("#nom-ld-resp").html() + "<tr><td>" +
+                                    data.object[i].nombre + "</td><td>" +
+                                    data.object[i].salario + "</td><td>" +
+                                    (data.object[i].nomina ? (data.object[i].nomina.saldo) : "aun no pagado") + "</td><td>" +
+                                    ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="emp_upd(' + data.object[i].idE + ')"/>' + "</td></tr>"
+                                    );
                             }
-                            var tmp = $("#resp").html();
-                            $("#resp").html(tmp).trigger("create");
+                            var tmp = $("#nom-ld-resp").html();
+                            $("#nom-ld-resp").html(tmp).trigger("create");
                         }
                     }); //ajax
                 }); //click
                 $("#submit").click(function(){
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#nm").val() + "/" + $("#sl").val(),
+                        url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#emp-nm").val() + "/" + $("#emp-py").val(),
                         data: {
-                            password: $("#ps").val()
+                            password: $("#emp-pwd").val()
                         },
                         success: function(dta, textStatus, jqXHR){
-                            $("#ins").html(dta.object);
-                            $("#slrmsg").click();
+                            $("#nom-ins").html(dta.object).trigger("create");
+                            $("#nom-ld").click();
                         }
                     }); //ajax
                 }); //click
                 $(".slrmenu").html(
                     '<li><a href="#main-page">Inicio</a></li>' +
-                    '<li><a href="#test">Prueba</a></li>'
-                    ); // menu
+                    '<li><a href="#nomina">Nomina</a></li>'
+                    ).trigger("create"); // menu
+                $("#nom-ld").click();
             }); //ready
         </script>
     </head>
     <body>
-        <slr:jqbody ID="main-page" header_text="Inicio">
-            <h1 id="slrmsg" class="btn btn-lg btn-success">Mostrar empleados</h1>
-            <ul id="resp"></ul>
-            Insertar:
-            <form>
-                Nombre: <input id="nm" type="text" /><br>
-                Salario: <input id="sl" type="number" /><br>
-                Password: <input id="ps" type="password" /><br>
-                <input type="button" value="insertar" id="submit" class="btn btn-lg btn-default" />
-            </form><br>
-            <div id="ins"></div>
-            <div id="pagos"></div>
-        </slr:jqbody>
-        <slr:jqbody ID="test" header_text="Prueba">
+        <slr:jqbody ID="main-page" header_text="Prueba" class="ui-alt-icon" defpage="main-page">
             K ase
+        </slr:jqbody>
+        <slr:jqbody ID="nomina" header_text="Nomina" class="ui-alt-icon" defpage="main-page">
+            <form>
+                <table>
+                    <tr rowspan="2">
+                        <td colspan="2" align="center">
+                            Insertar empleados
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <div id="nom-ins"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Nombre:
+                        </td>
+                        <td>
+                            <input id="emp-nm" data-inline="true" type="text" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Salario:
+                        </td>
+                        <td>
+                            <input id="emp-py" data-inline="true" type="number" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Password:
+                        </td>
+                        <td>
+                            <input id="emp-pwd" data-inline="true" type="password" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" id="nom-ld" value="Mostrar empleados" data-theme="b" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <input type="button" value="Insertar" id="submit" data-theme="c" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <table width="100%">
+                                <thead class="ui-body-b" align="center">
+                                    <tr>
+                                        <td>
+                                            Nombre
+                                        </td>
+                                        <td>
+                                            Salario
+                                        </td>
+                                        <td>
+                                            Estado de nomina
+                                        </td>
+                                        <td>
+                                            Acciones
+                                        </td>
+                                    </tr>
+                                </thead>
+                                <tbody id="nom-ld-resp" align="center"></tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </form>
         </slr:jqbody>
     </body>
 </html>
