@@ -14,25 +14,20 @@
 
 <%-- any content can be specified here e.g.: --%>
 <div data-role="page" id="${ID}" <c:forEach items="${dyn}" var="a"> ${a.key}="${a.value}" </c:forEach> >
-        <div data-role="header" data-position="fixed">
-            <a href="#${defpage}" class="ui-btn ui-btn-icon-left ui-icon-home ui-btn-b ui-corner-all ui-shadow">Inicio</a>
+    <div data-role="panel" id="${ID}-panel">
+        <ul class="slrmenu ui-mini">
+            <%-- Fill menu in javascript --%>
+        </ul>
+    </div>
+    <div data-role="header" data-position="fixed">
+        <a href="#${defpage}" class="ui-btn ui-btn-icon-left ui-icon-home ui-btn-b ui-corner-all ui-shadow ui-mini">Inicio</a>
+        <a href="#${ID}-panel" class="ui-btn ui-btn-icon-left ui-icon-action ui-btn-b ui-corner-all ui-shadow ui-mini">Menu</a>
         <h1>
             ${header_text}
         </h1>
     </div>
-    <div data-role="content">
-        <table width="100%">
-            <tr>
-                <td width="10%" valign="top">
-                    <ul class="slrmenu">
-                        <%-- Fill menu in javascript? --%>
-                    </ul>
-                </td>
-                <td align="center">
-                    <jsp:doBody />
-                </td>
-            </tr>
-        </table>
+    <div data-role="content" align='center'>
+        <jsp:doBody />
     </div>
     <div data-role="footer" data-position="fixed">
         <slr:copyright name="Aaron Torres" />

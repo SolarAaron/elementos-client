@@ -45,32 +45,29 @@
                         }
                     }); //ajax
                 }); //click
-                $("#submit").click(function(){
+                $("#emp-ins").click(function(){
                     $.ajax({
                         type: "POST",
                         url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#emp-nm").val() + "/" + $("#emp-py").val(),
                         data: {
                             password: $("#emp-pwd").val()
                         },
-                        success: function(dta, textStatus, jqXHR){
+                        success: function(dta){
                             $("#nom-ins").html(dta.object).trigger("create");
                             $("#nom-ld").click();
                         }
                     }); //ajax
                 }); //click
-                $(".slrmenu").html(
-                    '<li><a href="#main-page">Inicio</a></li>' +
-                    '<li><a href="#nomina">Nomina</a></li>'
-                    ).trigger("create"); // menu
+                $(".slrmenu").html(<slr:mkmenu c-productos="Productos" b-inicio="Inicio" d-nomina="Nomina" />).trigger("create");
                 $("#nom-ld").click();
             }); //ready
         </script>
     </head>
     <body>
-        <slr:jqbody ID="main-page" header_text="Prueba" class="ui-alt-icon" defpage="main-page">
-            K ase
+        <slr:jqbody ID="b-inicio" header_text="Prueba" class="ui-alt-icon" defpage="main-page">
+            Inicio
         </slr:jqbody>
-        <slr:jqbody ID="nomina" header_text="Nomina" class="ui-alt-icon" defpage="main-page">
+        <slr:jqbody ID="d-nomina" header_text="Nomina" class="ui-alt-icon" defpage="main-page">
             <form>
                 <table>
                     <tr rowspan="2">
@@ -114,13 +111,13 @@
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
-                            <input type="button" value="Insertar" id="submit" data-theme="c" />
+                            <input type="button" value="Insertar" id="emp-ins" data-theme="c" />
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center">
                             <table width="100%">
-                                <thead class="ui-body-b" align="center">
+                                <thead class="ui-body-b ui-corner-all" align="center">
                                     <tr>
                                         <td>
                                             Nombre
@@ -129,7 +126,7 @@
                                             Salario
                                         </td>
                                         <td>
-                                            Estado de nomina
+                                            Estado de cuenta
                                         </td>
                                         <td>
                                             Acciones
@@ -141,6 +138,11 @@
                         </td>
                     </tr>
                 </table>
+            </form>
+        </slr:jqbody>
+        <slr:jqbody ID="c-productos" header_text="Productos" class="ui-alt-icon" defpage="main-page">
+            <form>
+                
             </form>
         </slr:jqbody>
     </body>
