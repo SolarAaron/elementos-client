@@ -16,134 +16,64 @@
                     type: "POST",
                     url: "http://localhost:8095/mvn-web-spr/util/nominas/" + i,
                     success: function(data){
-                        $("#nom-ins").html("<br>" + data.object).trigger("create");
-                        $("#nom-ld").click();
+                        $("#empleado-status").html("<br>" + data.object).trigger("create");
+                        $("#empleado-load").click();
                     }
                 });
             }
             ;
 
+            function empleado_load(){
+                $.ajax({
+                    type: "GET",
+                    url: "http://localhost:8095/mvn-web-spr/util/empleados",
+                    data: {
+                    },
+                    success: function(data, textStatus, jqXHR){
+                        $("#empleado-response").html("");
+                        for(i = 0; i < data.object.length; i++){
+                            $("#empleado-response").html($("#empleado-response").html() + "<tr><td>" +
+                                data.object[i].nombre + "</td><td>" +
+                                data.object[i].salario + "</td><td>" +
+                                (data.object[i].nomina ? (data.object[i].nomina.saldo) : "aun no pagado") + "</td><td>" +
+                                ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="emp_upd(' + data.object[i].idE + ')"/>' + "</td></tr>"
+                                );
+                        }
+                        var tmp = $("#empleado-response").html();
+                        $("#empleado-response").html(tmp).trigger("create");
+                    }
+                }); //ajax
+            }
+
+            function empleado_insert(){
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#empleado-nombre").val() + "/" + $("#empleado-salario").val(),
+                    data: {
+                        password: $("#empleado-password").val()
+                    },
+                    success: function(dta){
+                        $("#empleado-status").html(dta.object).trigger("create");
+                        $("#empleado-load").click();
+                    }
+                }); //ajax
+            }
+
             $(document).ready(function(){
-                $("#nom-ld").click(function(){
-                    $.ajax({
-                        type: "GET",
-                        url: "http://localhost:8095/mvn-web-spr/util/empleados",
-                        data: {
-                        },
-                        success: function(data, textStatus, jqXHR){
-                            $("#nom-ld-resp").html("");
-                            for(i = 0; i < data.object.length; i++){
-                                $("#nom-ld-resp").html($("#nom-ld-resp").html() + "<tr><td>" +
-                                    data.object[i].nombre + "</td><td>" +
-                                    data.object[i].salario + "</td><td>" +
-                                    (data.object[i].nomina ? (data.object[i].nomina.saldo) : "aun no pagado") + "</td><td>" +
-                                    ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="emp_upd(' + data.object[i].idE + ')"/>' + "</td></tr>"
-                                    );
-                            }
-                            var tmp = $("#nom-ld-resp").html();
-                            $("#nom-ld-resp").html(tmp).trigger("create");
-                        }
-                    }); //ajax
-                }); //click
-                $("#emp-ins").click(function(){
-                    $.ajax({
-                        type: "POST",
-                        url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#emp-nm").val() + "/" + $("#emp-py").val(),
-                        data: {
-                            password: $("#emp-pwd").val()
-                        },
-                        success: function(dta){
-                            $("#nom-ins").html(dta.object).trigger("create");
-                            $("#nom-ld").click();
-                        }
-                    }); //ajax
-                }); //click
                 $(".slrmenu").html(<slr:mkmenu c-productos="Productos" b-inicio="Inicio" d-nomina="Nomina" />).trigger("create");
-                $("#nom-ld").click();
+                $("#empleado-load").click();
             }); //ready
         </script>
     </head>
     <body>
-        <slr:jqbody ID="b-inicio" header_text="Prueba" class="ui-alt-icon" defpage="main-page">
+        <slr:jqbody ID="b-inicio" header_text="Prueba" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
             Inicio
         </slr:jqbody>
-        <slr:jqbody ID="d-nomina" header_text="Nomina" class="ui-alt-icon" defpage="main-page">
-            <form>
-                <table>
-                    <tr rowspan="2">
-                        <td colspan="2" align="center">
-                            Insertar empleados
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <div id="nom-ins"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            Nombre:
-                        </td>
-                        <td>
-                            <input id="emp-nm" data-inline="true" type="text" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            Salario:
-                        </td>
-                        <td>
-                            <input id="emp-py" data-inline="true" type="number" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="right">
-                            Password:
-                        </td>
-                        <td>
-                            <input id="emp-pwd" data-inline="true" type="password" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="button" id="nom-ld" value="Mostrar empleados" data-theme="b" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <input type="button" value="Insertar" id="emp-ins" data-theme="c" />
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" align="center">
-                            <table width="100%">
-                                <thead class="ui-body-b ui-corner-all" align="center">
-                                    <tr>
-                                        <td>
-                                            Nombre
-                                        </td>
-                                        <td>
-                                            Salario
-                                        </td>
-                                        <td>
-                                            Estado de cuenta
-                                        </td>
-                                        <td>
-                                            Acciones
-                                        </td>
-                                    </tr>
-                                </thead>
-                                <tbody id="nom-ld-resp" align="center"></tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </form>
+        <slr:jqbody ID="d-nomina" header_text="Nomina" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
+            <slr:autoform base="empleado" inputs="Nombre:nombre:text,Salario:salario:number,Password:password:password" label="empleados" tblheaders="Nombre,Salario,Estado de cuenta,Acciones" title="Empleados" />
         </slr:jqbody>
-        <slr:jqbody ID="c-productos" header_text="Productos" class="ui-alt-icon" defpage="main-page">
-            <form>
-                
-            </form>
+        <slr:jqbody ID="c-productos" header_text="Productos" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
+            <slr:autoform base="producto" inputs="Codigo:codigo:text,Descripcion:descripcion:text,Precio:precio:number" label="producto" tblheaders="Codigo,Descripcion,Precio,Acciones" title="Insertar productos" />
         </slr:jqbody>
     </body>
 </html>

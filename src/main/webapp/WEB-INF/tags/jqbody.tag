@@ -14,7 +14,7 @@
 
 <%-- any content can be specified here e.g.: --%>
 <div data-role="page" id="${ID}" <c:forEach items="${dyn}" var="a"> ${a.key}="${a.value}" </c:forEach> >
-    <div data-role="panel" id="${ID}-panel">
+    <div data-role="panel" id="${ID}-panel" data-display="overlay">
         <ul class="slrmenu ui-mini">
             <%-- Fill menu in javascript --%>
         </ul>
