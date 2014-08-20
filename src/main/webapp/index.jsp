@@ -11,7 +11,7 @@
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.js"></script>
         <script>
-            function emp_upd(i){
+            function empleado_update(i){
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8095/mvn-web-spr/util/nominas/" + i,
@@ -36,7 +36,7 @@
                                 data.object[i].nombre + "</td><td>" +
                                 data.object[i].salario + "</td><td>" +
                                 (data.object[i].nomina ? (data.object[i].nomina.saldo) : "aun no pagado") + "</td><td>" +
-                                ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="emp_upd(' + data.object[i].idE + ')"/>' + "</td></tr>"
+                                ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="empleado_update(' + data.object[i].idE + ')"/>' + "</td></tr>"
                                 );
                         }
                         var tmp = $("#empleado-response").html();
@@ -70,10 +70,10 @@
             Inicio
         </slr:jqbody>
         <slr:jqbody ID="d-nomina" header_text="Nomina" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
-            <slr:autoform base="empleado" inputs="Nombre:nombre:text,Salario:salario:number,Password:password:password" label="empleados" tblheaders="Nombre,Salario,Estado de cuenta,Acciones" title="Empleados" />
+            <slr:autoform base="empleado" inputs="Nombre:nombre:text,Salario:salario:number,Password:password:password" label="empleados" tblheaders="Nombre,Salario,Estado de cuenta" title="Empleados" />
         </slr:jqbody>
         <slr:jqbody ID="c-productos" header_text="Productos" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
-            <slr:autoform base="producto" inputs="Codigo:codigo:text,Descripcion:descripcion:text,Precio:precio:number" label="producto" tblheaders="Codigo,Descripcion,Precio,Acciones" title="Insertar productos" />
+            <slr:autoform base="producto" inputs="Codigo:codigo:text,Descripcion:descripcion:text,Precio:precio:number" label="producto" tblheaders="Codigo,Descripcion,Precio" title="Insertar productos" />
         </slr:jqbody>
     </body>
 </html>
