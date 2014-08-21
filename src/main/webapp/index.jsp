@@ -11,7 +11,7 @@
         <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.js"></script>
         <script>
-            function empleado_update(i){
+            function empleado_pagar(i){
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:8095/mvn-web-spr/util/nominas/" + i,
@@ -23,45 +23,25 @@
             }
             ;
 
-            function empleado_load(){
+            function producto_borrar(i){
                 $.ajax({
-                    type: "GET",
-                    url: "http://localhost:8095/mvn-web-spr/util/empleados",
-                    data: {
-                    },
-                    success: function(data, textStatus, jqXHR){
-                        $("#empleado-response").html("");
-                        for(i = 0; i < data.object.length; i++){
-                            $("#empleado-response").html($("#empleado-response").html() + "<tr><td>" +
-                                data.object[i].nombre + "</td><td>" +
-                                data.object[i].salario + "</td><td>" +
-                                (data.object[i].nomina ? (data.object[i].nomina.saldo) : "aun no pagado") + "</td><td>" +
-                                ' <input type="button" value="pagar" id="usr' + data.object[i].idE + '" data-inline="true" onclick="empleado_update(' + data.object[i].idE + ')"/>' + "</td></tr>"
-                                );
-                        }
-                        var tmp = $("#empleado-response").html();
-                        $("#empleado-response").html(tmp).trigger("create");
+                    type: "DELETE",
+                    url: "http://localhost:8095/mvn-web-spr/util/productos/" + i,
+                    success: function(data){
+                        $("#producto-status").html("<br>" + data.object).trigger("create");
+                        $("#producto-load").click();
                     }
-                }); //ajax
+                });
             }
+            ;
 
-            function empleado_insert(){
-                $.ajax({
-                    type: "POST",
-                    url: "http://localhost:8095/mvn-web-spr/util/empleados/" + $("#empleado-nombre").val() + "/" + $("#empleado-salario").val(),
-                    data: {
-                        password: $("#empleado-password").val()
-                    },
-                    success: function(dta){
-                        $("#empleado-status").html(dta.object).trigger("create");
-                        $("#empleado-load").click();
-                    }
-                }); //ajax
-            }
+            <slr:autoscript base="empleado" ldattribs="nombre,salario,nomina.saldo" restsvc='"http://localhost:8095/mvn-web-spr/util/empleados"' pagar="Pagar:idE" datavars="password" pathvars="nombre,salario" />
+            <slr:autoscript base="producto" ldattribs="codP,descripcion,precio" restsvc='"http://localhost:8095/mvn-web-spr/util/productos"' borrar="Borrar:codP" datavars="descripcion" pathvars="codigo,precio" />
 
             $(document).ready(function(){
                 $(".slrmenu").html(<slr:mkmenu c-productos="Productos" b-inicio="Inicio" d-nomina="Nomina" />).trigger("create");
                 $("#empleado-load").click();
+                $("#producto-load").click();
             }); //ready
         </script>
     </head>

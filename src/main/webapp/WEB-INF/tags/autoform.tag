@@ -58,10 +58,10 @@
                                 <td>
                                     ${hd}
                                 </td>
-                            </c:forEach>
-                    <td>
-                        Acciones
-                    </td>
+                            </c:forEach> 
+                            <td>
+                                Acciones
+                            </td>
                         </tr>
                     </thead>
                     <tbody id="${base}-response" align="center"></tbody>
