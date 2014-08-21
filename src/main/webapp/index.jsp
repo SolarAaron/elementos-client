@@ -37,23 +37,28 @@
 
             <slr:autoscript base="empleado" ldattribs="nombre,salario,nomina.saldo" restsvc='"http://localhost:8095/mvn-web-spr/util/empleados"' pagar="Pagar:idE" datavars="password" pathvars="nombre,salario" />
             <slr:autoscript base="producto" ldattribs="codP,descripcion,precio" restsvc='"http://localhost:8095/mvn-web-spr/util/productos"' borrar="Borrar:codP" datavars="descripcion" pathvars="codigo,precio" />
+            <slr:autoscript base="cliente" ldattribs="nombre" restsvc='"http://localhost:8095/mvn-web-spr/util/clientes"' borrar="Borrar:clientePK.idC,clientePK.nomUsuario" datavars="nombre,password" pathvars="nomUsuario" />
 
             $(document).ready(function(){
-                $(".slrmenu").html(<slr:mkmenu c-productos="Productos" b-inicio="Inicio" d-nomina="Nomina" />).trigger("create");
+                $(".slrmenu").html(<slr:mkmenu c-productos="Productos" b-inicio="Inicio" d-nomina="Nomina" a-cliente="Clientes" />).trigger("create");
                 $("#empleado-load").click();
                 $("#producto-load").click();
+                $("#cliente-load").click();
             }); //ready
         </script>
     </head>
     <body>
-        <slr:jqbody ID="b-inicio" header_text="Prueba" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
+        <slr:jqbody ID="b-inicio" header_text="Inicio" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
             Inicio
         </slr:jqbody>
         <slr:jqbody ID="d-nomina" header_text="Nomina" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
             <slr:autoform base="empleado" inputs="Nombre:nombre:text,Salario:salario:number,Password:password:password" label="empleados" tblheaders="Nombre,Salario,Estado de cuenta" title="Empleados" />
         </slr:jqbody>
         <slr:jqbody ID="c-productos" header_text="Productos" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
-            <slr:autoform base="producto" inputs="Codigo:codigo:text,Descripcion:descripcion:text,Precio:precio:number" label="producto" tblheaders="Codigo,Descripcion,Precio" title="Insertar productos" />
+            <slr:autoform base="producto" inputs="Codigo:codigo:text,Descripcion:descripcion:text,Precio:precio:number" label="producto" tblheaders="Codigo,Descripcion,Precio" title="Productos" />
+        </slr:jqbody>
+        <slr:jqbody ID="a-cliente" header_text="Clientes" class="ui-alt-icon ui-responsive-panel" defpage="b-inicio">
+            <slr:autoform base="cliente" inputs="Nombre de usuario:nomUsuario:text,Nombre:nombre:text,Password:password:password" label="cliente" tblheaders="Cliente" title="Clientes" />
         </slr:jqbody>
     </body>
 </html>

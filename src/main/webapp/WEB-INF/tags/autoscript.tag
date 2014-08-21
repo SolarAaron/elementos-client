@@ -38,7 +38,7 @@ function ${base}_load(){
                 "<td>" +
                     <c:forEach items="${actions}" var="btn">
                         <c:set var="spl" value="${btn.value.split(':')}" />
-                        '<input type="button" value="${spl[0]}" id="${base}-${btn.key}-' + data.object[i].${spl[1]} + '" data-inline="true" onclick="${base}_${btn.key}(\'' + data.object[i].${spl[1]} + '\')" />' +
+                        '<input type="button" value="${spl[0]}" id="${base}-${btn.key}-' + <c:forEach items="${spl[1]}" var="arg" varStatus="stat">data.object[i].${arg} ${stat.last? '': '+ \'-\' +'} </c:forEach> + '" data-inline="true" onclick="${base}_${btn.key}(' + <c:forEach items="${spl[1]}" var="arg" varStatus="stat"> '\'' + data.object[i].${arg} + '\'' ${stat.last? '': ','} </c:forEach> + ')" />' +
                     </c:forEach>
                     "</td>" +
                 "</tr>");
