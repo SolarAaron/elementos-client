@@ -14,6 +14,7 @@
 <%@attribute name="title" required="true" %>
 <%@attribute name="inputs" required="true" %>
 <%@attribute name="tblheaders" required="true" %>
+<%@attribute name="actioncolumn" required="true" type="java.lang.Boolean" %>
 
 <%-- any content can be specified here e.g.: --%>
 <form>
@@ -32,10 +33,19 @@
             <c:set var="spl" value="${in.split(':')}" />
             <tr>
                 <td align="right">
-                    ${spl[0]}
+                    <label for="${base}-${spl[1]}">${spl[0]}</label>
                 </td>
                 <td>
-                    <input id="${base}-${spl[1]}" data-inline="true" type="${spl[2]}" />
+                    <c:choose>
+                        <c:when test="${spl[2].equals('list')}">
+                                <select id="${base}-${spl[1]}">
+                                    <optgroup id="${base}-${spl[1]}-options" label="Escoger ${spl[0]}..."></optgroup>
+                                </select>
+                        </c:when>
+                        <c:otherwise>
+                            <input id="${base}-${spl[1]}" data-inline="true" type="${spl[2]}" />
+                        </c:otherwise>
+                    </c:choose>
                 </td>
             </tr>
         </c:forEach>
@@ -58,10 +68,12 @@
                                 <td>
                                     ${hd}
                                 </td>
-                            </c:forEach> 
-                            <td>
-                                Acciones
-                            </td>
+                            </c:forEach>
+                            <c:if test="${actioncolumn}">
+                                <td>
+                                    Acciones
+                                </td>
+                            </c:if>
                         </tr>
                     </thead>
                     <tbody id="${base}-response" align="center"></tbody>

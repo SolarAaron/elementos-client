@@ -1,4 +1,4 @@
-<%-- 
+<%--
     Document   : mkmenu
     Created on : 19/08/2014, 11:26:14 AM
     Author     : Aaron Torres <solaraaron@gmail.com>
@@ -12,7 +12,7 @@
 
 <%-- any content can be specified here e.g.: --%>
 '' +
-<c:forEach items="${items}" var="a"> 
-    '<li><a href="#${a.key}" class="ui-btn ui-btn-b ui-btn-corner-all ui-shadow">${a.value}</a></li>' +
+<c:forEach items="${items}" var="a">
+    '<li><a href="#${a.key}">${a.value}</a></li>' +
 </c:forEach>
 ''
